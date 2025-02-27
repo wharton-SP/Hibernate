@@ -5,6 +5,7 @@ import com.hib.util.HibernateUtil;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -69,12 +70,38 @@ public class EmployeDao {
     
     public List<Employe> searchEmployes(String keyword) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM Employe e WHERE e.nom LIKE :keyword OR e.prenom LIKE :keyword OR e.poste LIKE :keyword";
-            return session.createQuery(hql, Employe.class)
-                          .setParameter("keyword", "%" + keyword + "%")
-                          .list();
+            // Vérification si le keyword peut être converti en Long (codeemp)
+            Long codeemp = null;
+            boolean isNumeric = false;
+
+            // Tentative de conversion en Long
+            try {
+                codeemp = Long.valueOf(keyword);
+                isNumeric = true; // Si la conversion réussit, on marque comme étant un nombre
+            } catch (NumberFormatException e) {
+                // Si l'exception est levée, alors le keyword est une chaîne de caractères
+            }
+
+            String hql;
+            // Si keyword est un nombre, rechercher par codeemp, sinon rechercher par nom, prénom ou poste
+            if (isNumeric) {
+                hql = "FROM Employe e WHERE e.codeemp = :keyword";
+            } else {
+                hql = "FROM Employe e WHERE e.nom LIKE :keyword OR e.prenom LIKE :keyword OR e.poste LIKE :keyword";
+            }
+
+            // Requête préparée
+            Query<Employe> query = session.createQuery(hql, Employe.class);
+
+            // Paramètre pour le keyword (codeemp ou texte)
+            query.setParameter("keyword", isNumeric ? codeemp : "%" + keyword + "%");
+
+            return query.list();
         }
+
     }
+
+
 
 }
 

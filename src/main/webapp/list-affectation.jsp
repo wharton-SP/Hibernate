@@ -29,10 +29,22 @@
         .btn:hover {
             background-color: darkred;
         }
+        .search-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <h2 style="text-align: center;">Liste des Affectations</h2>
+
+    <!-- Formulaire de recherche -->
+    <div class="search-bar">
+        <form action="AffecterSearch" method="get">
+            <input type="text" name="keyword" placeholder="Rechercher..." value="${param.keyword}">
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
 
     <table>
         <tr>
@@ -52,7 +64,7 @@
                         <td>${affectation.lieu.designation}</td>
                         <td>${affectation.date}</td>
                         <td>
-                        	<a href="AffecterEdit?id=${affectation.codeaffecter}" class="btn">Modifier</a>
+                            <a href="AffecterEdit?id=${affectation.codeaffecter}" class="btn">Modifier</a>
                             <a href="AffecterDelete?id=${affectation.codeaffecter}" class="btn">Supprimer</a>
                         </td>
                     </tr>

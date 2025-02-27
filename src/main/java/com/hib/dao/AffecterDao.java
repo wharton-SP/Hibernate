@@ -4,6 +4,7 @@ import com.hib.model.Affecter;
 import com.hib.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -106,6 +107,24 @@ public class AffecterDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public List<Affecter> searchAffectations(String keyword) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Construire la requête de recherche avec jointure
+            String hql = "FROM Affecter a " +
+                         "JOIN a.employe e " +    // Jointure avec l'entité Employe
+                         "JOIN a.lieu l " +       // Jointure avec l'entité Lieu
+                         "WHERE e.nom LIKE :keyword OR e.prenom LIKE :keyword " +  // Recherche par nom ou prénom de l'employé
+                         "OR l.designation LIKE :keyword";  // Recherche par nom du lieu
+
+            // Création de la requête avec les paramètres
+            Query<Affecter> query = session.createQuery(hql, Affecter.class);
+            query.setParameter("keyword", "%" + keyword + "%");
+
+            // Retourne la liste des affectations correspondant aux critères
+            return query.list();
         }
     }
 }
