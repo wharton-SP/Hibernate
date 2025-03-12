@@ -6,39 +6,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Employés</title>
+    <script src="./assets/style/tailwind_cdn.js"></script>
     <style>
         table {
-            width: 100%;
-            border-collapse: collapse;
+            width: 70%;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+            padding: 0.5rem;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f3f4f6;
         }
-        h1 {
-            text-align: center;
+        tr:nth-child(even) {
+            background-color: #f3f4f6;
+        }
+        tr:nth-child(odd) {
+            background-color: #fff;
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50">
     <h1>Liste des Employés</h1>
     <form action="EmployeSearch" method="get">
         <input type="text" name="keyword" placeholder="Rechercher un employé..." required>
         <button type="submit">Rechercher</button>
     </form>
 
-    <table>
+    <table class="table-auto border-collapse mx-auto">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Poste</th>
-                <th>Action</th>
+                <th class="border-2">ID</th>
+                <th class="border-2">Nom</th>
+                <th class="border-2">Prénom</th>
+                <th class="border-2">Poste</th>
+                <th class="border-2">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -46,11 +47,11 @@
                 <c:when test="${not empty employes}">
                     <c:forEach var="employe" items="${employes}">
                         <tr>
-                            <td>${employe.codeemp}</td>
-                            <td>${employe.nom}</td>
-                            <td>${employe.prenom}</td>
-                            <td>${employe.poste}</td>
-                            <td>
+                            <td class="border-2">${employe.codeemp}</td>
+                            <td class="border-2">${employe.nom}</td>
+                            <td class="border-2">${employe.prenom}</td>
+                            <td class="border-2">${employe.poste}</td>
+                            <td class="border-2">
                                 <a href="EmployeUpdate?codeemp=${employe.codeemp}">Modifier</a> |
                                 <a href="EmployeDelete?codeemp=${employe.codeemp}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">Supprimer</a> |
                                 <a href="add-affectation.jsp?codeemp=${employe.codeemp}">Affecter</a> <!-- Lien vers l'ajout d'affectation -->
