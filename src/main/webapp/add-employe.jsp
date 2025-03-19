@@ -6,78 +6,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Employé</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            background: #28a745;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #218838;
-        }
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Ajouter un Employé</h2>
-        <form action="EmployeAdd" method="post">
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" required>
+<body class="bg-white text-black">
+    <div class="container mx-auto max-w-md p-6 bg-gray-100 rounded-md shadow-md mt-10">
+        <h2 class="text-2xl font-bold text-center mb-4">Ajouter un Employé</h2>
 
-            <label for="prenom">Prénom :</label>
-            <input type="text" id="prenom" name="prenom" required>
+        <form action="EmployeAdd" method="post" class="space-y-4">
+            <div>
+                <label for="nom" class="block font-semibold">Nom :</label>
+                <input type="text" id="nom" name="nom" required 
+                    class="w-full p-2 border border-black rounded-md bg-white text-black">
+            </div>
 
-            <label for="poste">Poste :</label>
-            <input type="text" id="poste" name="poste" required>
+            <div>
+                <label for="prenom" class="block font-semibold">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" required 
+                    class="w-full p-2 border border-black rounded-md bg-white text-black">
+            </div>
 
-            <button type="submit">Ajouter</button>
+            <div>
+                <label for="poste" class="block font-semibold">Poste :</label>
+                <input type="text" id="poste" name="poste" required 
+                    class="w-full p-2 border border-black rounded-md bg-white text-black">
+            </div>
+
+            <button type="submit" 
+                class="w-full px-4 py-2 bg-black text-white font-bold rounded-md hover:bg-gray-800">
+                Ajouter
+            </button>
         </form>
-        <a href="EmployeList" class="back-link">Voir la liste des employés</a>
+
+        <div class="mt-4 text-center">
+            <a href="EmployeList" class="text-black font-semibold hover:underline">Voir la liste des employés</a>
+        </div>
     </div>
 </body>
 </html>
