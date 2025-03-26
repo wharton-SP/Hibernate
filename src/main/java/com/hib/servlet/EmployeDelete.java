@@ -9,38 +9,26 @@ import java.io.IOException;
 
 import com.hib.dao.EmployeDao;
 
-/**
- * Servlet implementation class EmployeDelete
- */
 @WebServlet("/EmployeDelete")
 public class EmployeDelete extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private EmployeDao employeDao = new EmployeDao();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EmployeDelete() {
-        super();
-        // TODO Auto-generated constructor stub
+    private static final long serialVersionUID = 1L;
+    private EmployeDao employeDao = new EmployeDao();
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
+            throws ServletException, IOException {
+        try {
+            String codeemp = req.getParameter("codeemp"); // Changé de Long à String
+            employeDao.deleteEmploye(codeemp);
+            resp.sendRedirect("EmployeList");
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("errorMessage", "Erreur lors de la suppression");
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 Long codeemp = Long.parseLong(req.getParameter("codeemp"));
-        employeDao.deleteEmploye(codeemp);
-        resp.sendRedirect("EmployeList");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

@@ -14,6 +14,13 @@
 
         <form action="EmployeAdd" method="post" class="space-y-4">
             <div>
+                <label for="codeemp" class="block font-semibold">Code Employé :</label>
+                <input type="text" id="codeemp" name="codeemp" required 
+                    class="w-full p-2 border border-black rounded-md bg-white text-black"
+                    placeholder="Ex: EMP-001">
+            </div>
+
+            <div>
                 <label for="nom" class="block font-semibold">Nom :</label>
                 <input type="text" id="nom" name="nom" required 
                     class="w-full p-2 border border-black rounded-md bg-white text-black">

@@ -16,53 +16,43 @@ import com.hib.model.Lieu;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Servlet implementation class AffecterAdd
- */
 @WebServlet("/AffecterAdd")
 public class AffecterAdd extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	AffecterDao affecterDao = new AffecterDao();
-	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AffecterAdd() {
-        super();
-        // TODO Auto-generated constructor stub
+    private static final long serialVersionUID = 1L;
+    private AffecterDao affecterDao = new AffecterDao();
+    private EmployeDao employeDao = new EmployeDao();
+    private LieuDao lieuDao = new LieuDao();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Rediriger vers le formulaire d'ajout d'affectation
+        request.getRequestDispatcher("add-affectation.jsp").forward(request, response);
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-            Long codeemp = Long.parseLong(request.getParameter("codeemp"));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        try {
+            // Récupération des paramètres
+            String codeemp = request.getParameter("codeemp");
             Long codelieu = Long.parseLong(request.getParameter("codelieu"));
             String dateStr = request.getParameter("date");
 
+            // Conversion de la date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(dateStr);
 
-            EmployeDao employeDao = new EmployeDao();
-            LieuDao lieuDao = new LieuDao();
-
+            // Récupération des objets métier
             Employe employe = employeDao.getEmploye(codeemp);
             Lieu lieu = lieuDao.getLieu(codelieu);
 
+            // Validation
             if (employe == null || lieu == null) {
-                response.getWriter().write("Erreur: Employé ou Lieu introuvable !");
+                request.setAttribute("errorMessage", "Employé ou Lieu introuvable !");
+                request.getRequestDispatcher("add-affectation.jsp").forward(request, response);
                 return;
             }
 
+            // Création et sauvegarde de l'affectation
             Affecter affectation = new Affecter();
             affectation.setEmploye(employe);
             affectation.setLieu(lieu);
@@ -70,11 +60,15 @@ public class AffecterAdd extends HttpServlet {
 
             affecterDao.saveAffectation(affectation);
 
+            // Redirection vers la liste des affectations
             response.sendRedirect("AffecterList");
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Format du code lieu invalide");
+            request.getRequestDispatcher("add-affectation.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            request.setAttribute("errorMessage", "Erreur lors de l'ajout de l'affectation");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-	}
-
+    }
 }

@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Employe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codeemp;
+    @Column(name = "codeemp", length = 20, unique = true, nullable = false)
+    private String codeemp;  // Changé de Long à String
 
-    @Column(name = "nom")
+    @Column(name = "nom", nullable = false)
     private String nom;
 
     @Column(name = "prenom")
@@ -19,23 +19,25 @@ public class Employe {
     @Column(name = "poste")
     private String poste;
 
-    // Constructors, getters, setters, and toString() method
+    // Constructeurs
     public Employe() {}
 
-    public Employe(String nom, String prenom, String poste) {
+    public Employe(String codeemp, String nom, String prenom, String poste) {
+        this.codeemp = codeemp;
         this.nom = nom;
         this.prenom = prenom;
         this.poste = poste;
     }
 
-    // Getters and setters
-    public Long getCodeemp() {  
+    // Getters et setters
+    public String getCodeemp() {  // Retourne String maintenant
         return codeemp;
     }
 
-    public void setCodeemp(Long codeemp) {  
+    public void setCodeemp(String codeemp) {  // Prend un String en paramètre
         this.codeemp = codeemp;
     }
+
 
     public String getNom() {
         return nom;
@@ -61,11 +63,11 @@ public class Employe {
         this.poste = poste;
     }
 
-    // toString() method
+    // Méthode toString() mise à jour
     @Override
     public String toString() {
         return "Employe{" +
-               "id=" + codeemp +
+               "code='" + codeemp + '\'' +
                ", nom='" + nom + '\'' +
                ", prenom='" + prenom + '\'' +
                ", poste='" + poste + '\'' +

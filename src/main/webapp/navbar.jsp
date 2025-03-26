@@ -7,10 +7,10 @@
             
             <!-- Menu de navigation -->
             <div class="hidden md:flex space-x-8">
-                <a href="HomePage.jsp" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Accueil</a>
-                <a href="EmployeList.jsp" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Employés</a>
-                <a href="LieuList.jsp" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Lieux</a>
-                <a href="AffectationList.jsp" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Affectations</a>
+                <a href="/hibernate" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Accueil</a>
+                <a href="/hibernate/EmployeList" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Employés</a>
+                <a href="/hibernate/LieuList" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Lieux</a>
+                <a href="/hibernate/AffecterList" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-lg">Affectations</a>
             </div>
             
             <!-- Menu mobile (réduit) -->

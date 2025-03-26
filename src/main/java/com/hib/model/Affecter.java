@@ -22,6 +22,16 @@ public class Affecter {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    // Constructeurs
+    public Affecter() {
+    }
+
+    public Affecter(Employe employe, Lieu lieu, Date date) {
+        this.employe = employe;
+        this.lieu = lieu;
+        this.date = date;
+    }
+
     // Getters et Setters
     public int getCodeaffecter() {
         return codeaffecter;
@@ -53,5 +63,16 @@ public class Affecter {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    // Méthode toString()
+    @Override
+    public String toString() {
+        return "Affecter{" +
+               "codeaffecter=" + codeaffecter +
+               ", employe=" + (employe != null ? employe.getCodeemp() : "null") +
+               ", lieu=" + (lieu != null ? lieu.getCodelieu() : "null") +
+               ", date=" + date +
+               '}';
     }
 }

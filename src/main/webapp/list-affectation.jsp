@@ -62,9 +62,5 @@
         </table>
     </div>
 
-    <div class="text-center mt-6">
-        <a href="add-affectation.jsp" class="text-black font-semibold hover:underline">Ajouter une nouvelle affectation</a>
-    </div>
-
 </body>
 </html>
