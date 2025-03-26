@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Employé</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./assets/style/tailwind_cdn.js"></script>
 </head>
 <body class="bg-white text-black">
     <div class="container mx-auto max-w-md p-6 bg-gray-100 rounded-md shadow-md mt-10">

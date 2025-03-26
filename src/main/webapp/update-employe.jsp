@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier un Employé</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./assets/style/tailwind_cdn.js"></script>
 </head>
 <body class="bg-white text-black">
     <div class="max-w-md mx-auto mt-10 p-6 border border-black rounded-md shadow-lg">
