@@ -65,4 +65,14 @@ public class LieuDao {
             return session.get(Lieu.class, codelieu);
         }
     }
+    
+    public List<Lieu> searchLieuxCombined(String search) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Lieu WHERE lower(designation) LIKE :search OR lower(province) LIKE :search";
+            return session.createQuery(hql, Lieu.class)
+                    .setParameter("search", "%" + search.toLowerCase() + "%")
+                    .list();
+        }
+    }
+
 }

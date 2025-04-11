@@ -30,8 +30,14 @@ public class LieuList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<Lieu> lieux = lieuDao.getLieux(); // Récupère tous les lieux
+		String search = request.getParameter("search");
+
+	    List<Lieu> lieux;
+	    if (search != null && !search.trim().isEmpty()) {
+	        lieux = lieuDao.searchLieuxCombined(search.trim());
+	    } else {
+	        lieux = lieuDao.getLieux();
+	    }
         request.setAttribute("lieux", lieux); // Met les lieux dans l'attribut
         request.getRequestDispatcher("list-lieux.jsp").forward(request, response);
 	}
